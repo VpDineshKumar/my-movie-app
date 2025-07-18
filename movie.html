@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Movie List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .movie {
+      background: white;
+      margin-bottom: 10px;
+      padding: 15px;
+      border-left: 5px solid #007BFF;
+      cursor: pointer;
+    }
+
+    .movie:hover {
+      background: #e9f3ff;
+    }
+
+    /* Modal Styling */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      background: white;
+      padding: 20px;
+      margin: 10% auto;
+      width: 60%;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    #close-btn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎬 Movie List</h1>
+  <div id="movie-list"></div>
+
+  <!-- Modal -->
+  <div id="movie-modal" class="modal">
+    <div class="modal-content">
+      <span id="close-btn">&times;</span>
+      <h2 id="modal-title"></h2>
+      <p><strong>Director:</strong> <span id="modal-director"></span></p>
+      <p><strong>Year:</strong> <span id="modal-year"></span></p>
+      <p><strong>Description:</strong></p>
+      <p id="modal-description"></p>
+    </div>
+  </div>
+
+  <script>
+    const movies = [
+      {
+        title: "Singam 1",
+        Hero: "Surya",
+        Heroine: "Anushka",
+        year: 2010,
+        description: "A good movie , where he acts as a loyal police."
+      },
+      {
+        title: "Poojai",
+        hero: "vishal",
+        heroine: "shruthi hasan",
+        year: 2006,
+        description: "A computer hacker learns the world he lives in is actually a simulated reality controlled by machines."
+      },
+      {
+        title: "Interstellar",
+        director: "Christopher Nolan",
+        year: 2014,
+        description: "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival."
+      }
+    ];
+
+    const movieList = document.getElementById('movie-list');
+    const modal = document.getElementById('movie-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDirector = document.getElementById('modal-director');
+    const modalYear = document.getElementById('modal-year');
+    const modalDescription = document.getElementById('modal-description');
+    const closeBtn = document.getElementById('close-btn');
+
+    // Load movies
+    movies.forEach((movie) => {
+      const div = document.createElement('div');
+      div.className = 'movie';
+      div.textContent = `${movie.title} (${movie.year})`;
+      div.onclick = () => showDetails(movie);
+      movieList.appendChild(div);
+    });
+
+    function showDetails(movie) {
+      modalTitle.textContent = movie.title;
+      modalDirector.textContent = movie.director;
+      modalYear.textContent = movie.year;
+      modalDescription.textContent = movie.description;
+      modal.style.display = 'block';
+    }
+
+    closeBtn.onclick = () => {
+      modal.style.display = 'none';
+    };
+
+    window.onclick = (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    };
+  </script>
+</body>
+</html>
